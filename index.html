@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommutAI — System Administrator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-route"></i></div>
+      <div class="brand-text"><strong>CommutAI</strong><span>System Admin</span></div>
+    </div>
+
+    <nav class="side-nav">
+      <button class="side-link active" data-view="dashboard"><i class="fa-solid fa-grip"></i><span>Dashboard</span></button>
+      <button class="side-link" data-view="users"><i class="fa-solid fa-users"></i><span>Users</span></button>
+      <button class="side-link" data-view="drivers"><i class="fa-solid fa-id-card-clip"></i><span>Drivers</span></button>
+      <button class="side-link" data-view="conductors"><i class="fa-solid fa-user-tie"></i><span>Conductors</span></button>
+      <button class="side-link" data-view="vehicles"><i class="fa-solid fa-bus"></i><span>Vehicles</span></button>
+      <button class="side-link" data-view="routes"><i class="fa-solid fa-route"></i><span>Routes</span></button>
+      <button class="side-link" data-view="terminals"><i class="fa-solid fa-building-shield"></i><span>Terminals</span></button>
+      <button class="side-link" data-view="reports"><i class="fa-solid fa-file-lines"></i><span>Reports</span></button>
+      <button class="side-link" data-view="ai"><i class="fa-solid fa-microchip"></i><span>AI Monitoring</span><span class="side-badge side-badge--live">LIVE</span></button>
+      <button class="side-link" data-view="settings"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar">SA</div>
+        <div><strong>System Admin</strong><span>Root access</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <header class="topbar">
+      <button class="icon-btn" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-search"><i class="fa-solid fa-magnifying-glass"></i><input placeholder="Search the system..."></div>
+      <div class="topbar-right">
+        <span class="live-clock" id="live-clock">--:--:-- --</span>
+        <button class="icon-btn" id="dark-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+        <button class="icon-btn topbar-bell"><i class="fa-solid fa-bell"></i><span class="dot"></span></button>
+        <div class="topbar-avatar">SA</div>
+      </div>
+    </header>
+
+    <main class="content" id="content">
+
+      <!-- ============ DASHBOARD ============ -->
+      <section class="view active" data-view="dashboard">
+        <div class="view-head">
+          <div><h1>System Overview</h1><p>CommutAI network-wide statistics · Bukidnon region</p></div>
+        </div>
+
+        <div class="kpi-grid kpi-grid--6">
+          <div class="kpi-card"><div class="kpi-icon kpi-icon--green"><i class="fa-solid fa-user-group"></i></div><div class="kpi-body"><span class="kpi-label">Total Users</span><span class="kpi-value" id="kpi-users">18,204</span></div></div>
+          <div class="kpi-card"><div class="kpi-icon kpi-icon--yellow"><i class="fa-solid fa-people-group"></i></div><div class="kpi-body"><span class="kpi-label">Passengers</span><span class="kpi-value" id="kpi-passengers">16,940</span></div></div>
+          <div class="kpi-card"><div class="kpi-icon kpi-icon--orange"><i class="fa-solid fa-id-card-clip"></i></div><div class="kpi-body"><span class="kpi-label">Drivers</span><span class="kpi-value" id="kpi-drivers">86</span></div></div>
+          <div class="kpi-card"><div class="kpi-icon kpi-icon--green"><i class="fa-solid fa-bus"></i></div><div class="kpi-body"><span class="kpi-label">Vehicles</span><span class="kpi-value" id="kpi-vehicles">64</span></div></div>
+          <div class="kpi-card"><div class="kpi-icon kpi-icon--yellow"><i class="fa-solid fa-route"></i></div><div class="kpi-body"><span class="kpi-label">Trips Today</span><span class="kpi-value" id="kpi-trips">512</span></div></div>
+          <div class="kpi-card"><div class="kpi-icon kpi-icon--orange"><i class="fa-solid fa-peso-sign"></i></div><div class="kpi-body"><span class="kpi-label">Revenue (sim.)</span><span class="kpi-value" id="kpi-revenue">₱612,480</span></div></div>
+        </div>
+
+        <div class="chart-grid chart-grid--4">
+          <div class="panel"><div class="panel-head"><h3>Passengers</h3><span class="panel-tag">7 days</span></div><canvas id="chart-passengers" height="200"></canvas></div>
+          <div class="panel"><div class="panel-head"><h3>Trips</h3><span class="panel-tag">7 days</span></div><canvas id="chart-trips" height="200"></canvas></div>
+          <div class="panel"><div class="panel-head"><h3>Vehicles by Status</h3></div><canvas id="chart-vehicles" height="200"></canvas></div>
+          <div class="panel"><div class="panel-head"><h3>Occupancy</h3></div><canvas id="chart-occupancy" height="200"></canvas></div>
+        </div>
+
+        <div class="triple-grid">
+          <div class="panel">
+            <div class="panel-head"><h3>Notifications</h3></div>
+            <div class="notif-list" id="notif-list"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>System Logs</h3><span class="panel-tag">Live</span></div>
+            <div class="log-list" id="log-list"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Recent Activity</h3></div>
+            <div class="activity-list" id="activity-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ USERS ============ -->
+      <section class="view" data-view="users">
+        <div class="view-head">
+          <div><h1>User Management</h1><p>All registered CommutAI accounts</p></div>
+          <button class="btn-primary" data-add="users"><i class="fa-solid fa-plus"></i> Add User</button>
+        </div>
+        <div class="manage-toolbar">
+          <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input class="entity-search" data-entity="users" placeholder="Search users by name or email"></div>
+          <div class="filter-row" id="users-filters">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="Active">Active</button>
+            <button class="filter-chip" data-filter="Suspended">Suspended</button>
+          </div>
+        </div>
+        <div class="entity-grid" id="grid-users"></div>
+      </section>
+
+      <!-- ============ DRIVERS ============ -->
+      <section class="view" data-view="drivers">
+        <div class="view-head">
+          <div><h1>Driver Management</h1><p>Licensed drivers across the fleet</p></div>
+          <button class="btn-primary" data-add="drivers"><i class="fa-solid fa-plus"></i> Add Driver</button>
+        </div>
+        <div class="manage-toolbar">
+          <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input class="entity-search" data-entity="drivers" placeholder="Search drivers by name"></div>
+        </div>
+        <div class="entity-grid" id="grid-drivers"></div>
+      </section>
+
+      <!-- ============ CONDUCTORS ============ -->
+      <section class="view" data-view="conductors">
+        <div class="view-head">
+          <div><h1>Conductor Management</h1><p>Crew assigned to collect fares and manage boarding</p></div>
+          <button class="btn-primary" data-add="conductors"><i class="fa-solid fa-plus"></i> Add Conductor</button>
+        </div>
+        <div class="manage-toolbar">
+          <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input class="entity-search" data-entity="conductors" placeholder="Search conductors by name"></div>
+        </div>
+        <div class="entity-grid" id="grid-conductors"></div>
+      </section>
+
+      <!-- ============ VEHICLES ============ -->
+      <section class="view" data-view="vehicles">
+        <div class="view-head">
+          <div><h1>Vehicle Management</h1><p>Fleet registry and assignment status</p></div>
+          <button class="btn-primary" data-add="vehicles"><i class="fa-solid fa-plus"></i> Add Vehicle</button>
+        </div>
+        <div class="manage-toolbar">
+          <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input class="entity-search" data-entity="vehicles" placeholder="Search by vehicle or plate number"></div>
+        </div>
+        <div class="entity-grid" id="grid-vehicles"></div>
+      </section>
+
+      <!-- ============ ROUTES ============ -->
+      <section class="view" data-view="routes">
+        <div class="view-head">
+          <div><h1>Route Management</h1><p>Configured routes across the network</p></div>
+          <button class="btn-primary" data-add="routes"><i class="fa-solid fa-plus"></i> Add Route</button>
+        </div>
+        <div class="manage-toolbar">
+          <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input class="entity-search" data-entity="routes" placeholder="Search by origin or destination"></div>
+        </div>
+        <div class="entity-grid" id="grid-routes"></div>
+      </section>
+
+      <!-- ============ TERMINALS ============ -->
+      <section class="view" data-view="terminals">
+        <div class="view-head">
+          <div><h1>Terminal Management</h1><p>Registered terminals in the network</p></div>
+          <button class="btn-primary" data-add="terminals"><i class="fa-solid fa-plus"></i> Add Terminal</button>
+        </div>
+        <div class="manage-toolbar">
+          <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input class="entity-search" data-entity="terminals" placeholder="Search by terminal name"></div>
+        </div>
+        <div class="entity-grid" id="grid-terminals"></div>
+      </section>
+
+      <!-- ============ REPORTS ============ -->
+      <section class="view" data-view="reports">
+        <div class="view-head"><div><h1>Reports</h1><p>System-wide performance reports</p></div></div>
+        <div class="report-tabs">
+          <button class="filter-chip active" data-rfilter="daily">Daily</button>
+          <button class="filter-chip" data-rfilter="weekly">Weekly</button>
+          <button class="filter-chip" data-rfilter="monthly">Monthly</button>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3 id="report-title">Daily Report — July 1, 2026</h3></div>
+          <div class="report-grid">
+            <div class="report-stat"><span>Total Trips</span><strong id="report-trips">512</strong></div>
+            <div class="report-stat"><span>Total Passengers</span><strong id="report-passengers">16,940</strong></div>
+            <div class="report-stat"><span>Active Vehicles</span><strong id="report-vehicles">64</strong></div>
+            <div class="report-stat"><span>Revenue (sim.)</span><strong id="report-revenue">₱612,480</strong></div>
+          </div>
+          <div class="report-actions">
+            <button class="btn-outline" id="btn-pdf"><i class="fa-solid fa-file-pdf"></i> Export PDF</button>
+            <button class="btn-outline" id="btn-excel"><i class="fa-solid fa-file-excel"></i> Export Excel</button>
+            <button class="btn-outline" id="btn-print"><i class="fa-solid fa-print"></i> Print</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ AI MONITORING ============ -->
+      <section class="view" data-view="ai">
+        <div class="view-head">
+          <div><h1>AI Monitoring</h1><p>Simulated computer-vision passenger detection — for demonstration only</p></div>
+          <span class="pill pill-live"><i class="fa-solid fa-circle blink"></i> Model running</span>
+        </div>
+
+        <div class="ai-layout">
+          <div class="ai-feed">
+            <div class="ai-feed-header">
+              <span><i class="fa-solid fa-video"></i> CAM‑03 · Terminal Bay 2</span>
+              <span class="ai-feed-fps" id="ai-fps-tag">24 FPS</span>
+            </div>
+            <div class="ai-feed-canvas-wrap">
+              <canvas id="ai-canvas" width="640" height="360"></canvas>
+              <div class="ai-scan-line"></div>
+            </div>
+            <div class="ai-feed-footer">
+              <span><i class="fa-solid fa-brain"></i> YOLOv8 · Passenger Detection</span>
+              <span id="ai-detect-count">0 objects detected</span>
+            </div>
+          </div>
+
+          <div class="ai-metrics">
+            <div class="ai-metric-card">
+              <span class="ai-metric-label">Passenger Count</span>
+              <span class="ai-metric-value" id="ai-count">0</span>
+            </div>
+            <div class="ai-metric-card">
+              <span class="ai-metric-label">Detection Accuracy</span>
+              <span class="ai-metric-value" id="ai-accuracy">0%</span>
+            </div>
+            <div class="ai-metric-card">
+              <span class="ai-metric-label">Detection Confidence</span>
+              <span class="ai-metric-value" id="ai-confidence">0%</span>
+            </div>
+            <div class="ai-metric-card">
+              <span class="ai-metric-label">Frame Rate</span>
+              <span class="ai-metric-value" id="ai-framerate">0 fps</span>
+            </div>
+            <div class="ai-metric-card">
+              <span class="ai-metric-label">Occupancy</span>
+              <span class="ai-metric-value" id="ai-occupancy">0%</span>
+            </div>
+            <div class="ai-metric-card">
+              <span class="ai-metric-label">Crowding Level</span>
+              <span class="ai-metric-value ai-metric-value--tag" id="ai-crowding">Low</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ai-status-row">
+          <div class="ai-status-chip"><i class="fa-solid fa-camera"></i> Camera Status: <strong id="ai-camera-status">Online</strong></div>
+          <div class="ai-status-chip"><i class="fa-solid fa-eye"></i> YOLO Detection: <strong id="ai-yolo-status">Active</strong></div>
+          <div class="ai-status-chip"><i class="fa-solid fa-layer-group"></i> OpenCV Status: <strong id="ai-opencv-status">Running</strong></div>
+        </div>
+
+        <div class="panel" style="margin-top:20px;">
+          <div class="panel-head"><h3>Detection Log</h3></div>
+          <div class="log-list" id="ai-log-list"></div>
+        </div>
+      </section>
+
+      <!-- ============ SETTINGS ============ -->
+      <section class="view" data-view="settings">
+        <div class="view-head"><div><h1>Settings</h1><p>System-wide configuration</p></div></div>
+        <div class="settings-panel">
+          <div class="settings-group">
+            <p class="settings-label">System</p>
+            <div class="settings-row"><span><i class="fa-solid fa-server"></i> Environment</span><strong>Production (simulated)</strong></div>
+            <div class="settings-row"><span><i class="fa-solid fa-code-branch"></i> Version</span><strong>CommutAI v1.0.0</strong></div>
+            <div class="settings-row"><span><i class="fa-solid fa-database"></i> Data source</span><strong>In-memory simulation</strong></div>
+          </div>
+          <div class="settings-group">
+            <p class="settings-label">Preferences</p>
+            <div class="settings-row"><span><i class="fa-solid fa-moon"></i> Dark mode</span><label class="switch"><input type="checkbox" id="dark-toggle"><span class="slider"></span></label></div>
+            <div class="settings-row"><span><i class="fa-solid fa-bell"></i> System alerts</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+            <div class="settings-row"><span><i class="fa-solid fa-microchip"></i> AI monitoring</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ ADD / EDIT MODAL ============ -->
+<div class="modal-overlay" id="entity-modal">
+  <div class="modal-card modal-card--form">
+    <div class="modal-form-head">
+      <h3 id="modal-title">Add User</h3>
+      <button class="icon-btn" id="modal-close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="entity-form">
+      <div class="modal-fields" id="modal-fields"></div>
+      <div class="modal-form-actions">
+        <button type="button" class="btn-outline" id="modal-cancel">Cancel</button>
+        <button type="submit" class="btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ DELETE CONFIRM MODAL ============ -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal-card">
+    <div class="modal-alert-icon"><i class="fa-solid fa-trash"></i></div>
+    <h3>Remove this record?</h3>
+    <p class="modal-copy" id="delete-copy">This will remove the record from the system. This action cannot be undone.</p>
+    <button class="btn-block-danger" id="delete-confirm"><i class="fa-solid fa-trash"></i> Delete</button>
+    <button class="btn-ghost-block" id="delete-cancel">Cancel</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
